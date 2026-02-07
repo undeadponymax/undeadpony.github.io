@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Poiret+One&display=swap');
+
+:root {
+  --ui-scale: clamp(0.9, 1vw + 0.8, 1.4);
+}
+
+/* ---------- RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background: #acd2ef;
+  color: #fff;
+  font-family: "Poiret One", system-ui, Arial, sans-serif;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1rem 2rem;
+ /* background: #acd2ef;
+  backdrop-filter: blur(10px); */
+} 
+
+.page {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 8vw, 10rem);
+}
+
+.page-hero {
+  margin-bottom: 2.5rem;
+}
+
+.page-title {
+  font-family: "Poiret One", sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  margin: 0;
+}
+
+.page-content {
+  max-width: 60ch; /* nice readable text width */
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.page-content p {
+  margin: 0 0 1.2rem 0;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+
+  /* padding: 1rem 2rem; */
+}
+
+
+.nav-links a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: "Poiret One", sans-serif;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.ig-link svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  transition: transform .3s ease;
+}
+
+.ig-link:hover svg {
+  transform: scale(1.2);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  flex: 1 1 auto;
+  min-height: 0;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 3rem;
+  z-index: 1;
+}
+
+.home {
+  overflow: hidden;
+}
+
+.home .hero {
+  overflow: visible;
+}
+
+/* ---------- TITLE ---------- */
+.glow-text {
+  font-family: "Corinthia", cursive;
+  font-weight: 400;
+  text-align: center;
+  z-index: 2;
+
+  font-size: 7rem;
+
+  text-shadow:
+    0 0 8px #00ffff,
+    0 0 25px #4169e1,
+    0 0 50px #800080;
+
+  animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { opacity: 0.9; }
+  to { opacity: 1; }
+}
+
+/* ---------- IMAGE BUTTONS ---------- */
+.img-btn {
+  position: absolute;
+  width: 320px; 
+  aspect-ratio: 1 / 1;
+  background: no-repeat center / 220%;
+  border: none;
+  cursor: pointer;
+  transition: transform .35s ease, filter .35s ease;
+  display: block;
+}
+
+.img-btn:hover {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 0 12px #00ffff)
+    drop-shadow(0 0 28px #4169e1)
+    drop-shadow(0 0 55px #800080);
+}
+
+.logo img {
+  height: clamp(45px, 5vw, 75px);
+  width: auto;
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Positions */
+.tl { top: 5%; left: 8%; }
+.tr { top: 5%; right: 8%; }
+.bl { bottom: 3%; left: 8%; }
+.br { bottom: 1%; right: 8%; }
+
+/* ---------- TABLETS ---------- */
+@media (max-width: 1024px) {
+  .glow-text { font-size: 9rem; }
+
+  .img-btn {
+    width: 420px;
+  }
+}
+
+/* ---------- PHONES ---------- */
+@media (max-width: 768px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .img-btn {
+    position: static;
+    width: min(85vw, 420px);
+  }
+
+  .glow-text {
+    font-size: 10rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+@media (max-width: 420px) {
+  .glow-text {
+    font-size: 8.5rem;
+  }
+}
+
+/* tablets + phones */
+@media (max-width: 1024px) {
+  .site-header {
+    background: #acd2ef;
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* ---------- GALLERY ---------- */
+
+/* Let galleries use full width, but keep text pages readable */
+.page-content { max-width: 60ch; }
+.page-gallery .page-content { max-width: none; }
+
+/* Grid: never overflow horizontally */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+/* Make grid items allowed to shrink (prevents overflow) */
+.gallery-item,
+.gallery-open {
+  min-width: 0;
+}
+
+.gallery-item {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.gallery-open {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Frame: fixed height on desktop */
+.gallery-frame {
+  height: 340px;          /* <-- change this to taste */
+  background: #fff;
+  padding: 18px;
+  border-radius: 0;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.20),
+    0 2px 6px rgba(0,0,0,.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.gallery-mat {
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7;
+  padding: 12px;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* No cropping: contain for rectangular art */
+.gallery-mat img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;   /* <-- key change */
+  border-radius: 0;
+}
+
+/* Hover */
+.gallery-open:hover .gallery-frame {
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.26),
+    0 4px 10px rgba(0,0,0,.14);
+}
+
+/* Caption */
+.gallery-caption {
+  font-family: "Poiret One", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: #fff;
+  opacity: 0.95;
+}
+
+/* Mobile: fixed width (1 column), height becomes natural */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-frame {
+    height: auto;
+  }
+
+  .gallery-mat {
+    aspect-ratio: 4 / 5; /* optional: nicer consistent block */
+  }
+}
+
+
+/* ---------- CAPTION ---------- */
+.gallery-caption {
+  font-family: "Poiret One", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: #fff;
+  opacity: 0.95;
+}
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 2rem;
+  z-index: 9999;
+}
+
+.lightbox.open {
+  display: grid;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: min(92vw, 1200px);
+  max-height: 88vh;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Prevent any sideways scroll on pages (safe) */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Extra safety for gallery pages */
+.page-gallery {
+  overflow-x: hidden;
+}
